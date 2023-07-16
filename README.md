@@ -7,6 +7,15 @@ To Do : for the moment i implement the following using cpp
 - [ ] parser
 
 
+# Example to what i will start to compile
+
+``` bash
+3 + 7 - (5*10) +10
+
+```
+
+
+
 # structe of the projcet 
 ``` bash
 compiler/

@@ -12,6 +12,7 @@ enum class TokenType{
 	MINUS,
 	EQUAL,
 	SYMBOLE,
+	END_OF_FILE,
 };
 
 strun Token {
@@ -28,22 +29,23 @@ public:
 	
 
 private:
-std::string input;
+	std::string sourceCode;
 	int currentPosition;
-	int curentLine;
+	int currentLine;
 	int currentColumn;
 
-
+	// methode
+	char advanced() ;
 	char peek();
 	bool isEndOfFile();
-	bool iswhiteSpace(char c);
+	bool isWhiteSpace(char c);
 	bool isDigit(char c);
-	bool isAlpha();
+	bool isAlpha(char c);
 	void skipWitheSpace();
 	Token recognizeToken();
 	Token recognizeIdentifier();
 	Token recognizeNumber();
-	Token recognizeOperater();
+
 
 
 }
