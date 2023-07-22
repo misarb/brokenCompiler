@@ -61,3 +61,53 @@ void Lexer::skipWithSpace(){
 		
 	}
 }
+
+
+
+bool Lexer::isDigit(char c)
+{
+
+	return c>='0' && c<='9' ;
+
+}
+
+bool Lexer::isAlpha(char c)
+{
+
+	return (c<='a' && c>='z') || (c<='A' && c>='Z');
+}
+
+char advanced Lexer::advanced()
+{
+
+	if(!isEndOfFile())
+	{
+
+		currentPosition++;
+
+		if(sourceCode[currentPosition -1] =="\n")
+		{
+			currentLine++ ;
+			currentColumn = 1;
+
+
+		}else{
+	currentColumn++;
+		}
+
+	}
+
+	reutrn peek();
+
+}
+
+
+
+
+
+
+
+
+
+
+
