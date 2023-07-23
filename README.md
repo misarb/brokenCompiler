@@ -22,16 +22,16 @@ compiler/
 ├── src/
 │   ├── lexer/
 │   │   ├── lexer.cpp
-│   │   └── lexer.h
+│   │  
 │   ├── parser/
 │   │   ├── parser.cpp
-│   │   └── parser.h
+│   │   
 │   ├── semantic_analysis/
 │   │   ├── analyzer.cpp
-│   │   └── analyzer.h
+│   │   
 │   ├── code_generation/
 │   │   ├── code_generator.cpp
-│   │   └── code_generator.h
+│   │   
 │   └── main.cpp
 ├── include/
 │   ├── lexer/
