@@ -3,7 +3,8 @@
 
 #include <string>
 #include <vector>
-enum class TokenType{
+enum class TokenType
+{
 
 	IDENTIFIER,
 	INTEGER,
@@ -13,20 +14,24 @@ enum class TokenType{
 	EQUAL,
 	SYMBOLE,
 	END_OF_FILE,
+	OPEN_PARANTHESE,
+	CLOSE_PARANTHESE,
+	ERROR,
 };
 
-strun Token {
+struct Token
+{
 	TokenType type;
 	std::string lexeme;
 	int line;
 	int column;
 };
 
-class Lexer{
+class Lexer
+{
 public:
-	Lexer(const std::string& input);
+	Lexer(const std::string &input);
 	Token getNextToken();
-	
 
 private:
 	std::string sourceCode;
@@ -35,7 +40,7 @@ private:
 	int currentColumn;
 
 	// methode
-	char advanced() ;
+	char advanced();
 	char peek();
 	bool isEndOfFile();
 	bool isWhiteSpace(char c);
@@ -45,16 +50,6 @@ private:
 	Token recognizeToken();
 	Token recognizeIdentifier();
 	Token recognizeNumber();
-
-
-
 }
-
-
-
-
-
-
-
 
 #endif // !DEBUG
