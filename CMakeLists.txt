@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(borkenCompiler)
+project(brokenCompiler)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -18,6 +18,9 @@ endif()
 
 
 add_executable(bC src/main.cpp)
+
+enable_testing()
+add_subdirectory(test)
 
 
 target_include_directories(bC PRIVATE include/

@@ -16,10 +16,8 @@ Token Lexer::getNextToken()
 		return TokenType::END_OF_FILE, "", currentLine, currentColumn
 	};
 }
-Token token = recognizeToken();
-return token;
-}
-}
+
+
 
 bool Lexer::isEndOfFile()
 {
