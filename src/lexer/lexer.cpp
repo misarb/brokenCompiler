@@ -1,20 +1,22 @@
-#include "lexer.h"
+#include <../include/lexer/lexer.h>
 
-Lexer::Lexer(const std::string &input){
-	sourceCode(input),
+Lexer::Lexer(const std::string &input)
+:sourceCode(input),
 	currentPosition(0),
 	currentLine(1),
-	currentColumn(1),
+	currentColumn(1)
+{
+	
 
 }
 
 Token Lexer::getNextToken()
 {
-	skipWhiteSpace();
+	skipWitheSpace();
 	if (isEndOfFile())
 	{
-		return TokenType::END_OF_FILE, "", currentLine, currentColumn
-	};
+		return {TokenType::END_OF_FILE, "", currentLine, currentColumn};
+	}
 }
 
 
@@ -22,20 +24,20 @@ Token Lexer::getNextToken()
 bool Lexer::isEndOfFile()
 {
 
-	return currentLine >= sourceCode.lenght();
+	return currentLine >= sourceCode.length();
 }
 
 char Lexer::peek()
 {
 
-	if (currentPosition < sourceCode.lenght())
+	if (currentPosition < sourceCode.length())
 	{
 
-		return sourceCode[currentPoition];
+		return sourceCode[currentPosition];
 	}
 	else
 	{
-		reutrn '\o'; // END_OF_FILE
+		return '\0'; // END_OF_FILE
 	}
 }
 
@@ -51,7 +53,7 @@ bool Lexer::isWhiteSpace(char c)
 	}
 }
 
-void Lexer::skipWithSpace()
+void Lexer::skipWitheSpace()
 {
 
 	while (!isEndOfFile() && isWhiteSpace(peek()))
@@ -80,7 +82,7 @@ char Lexer::advanced()
 
 		currentPosition++;
 
-		if (sourceCode[currentPosition - 1] == "\n")
+		if (sourceCode[currentPosition - 1] == '\n')
 		{
 			currentLine++;
 			currentColumn = 1;
@@ -91,14 +93,14 @@ char Lexer::advanced()
 		}
 	}
 
-	reutrn peek();
+	return peek();
 }
 
 Token Lexer::recognizeToken()
 {
 	std::string tokenString;
 
-	while (!isEndOfFile)
+	while (!isEndOfFile())
 	{
 		char currentChar = peek();
 		// TODO : transform it to swtich case to be more readable
@@ -118,14 +120,14 @@ Token Lexer::recognizeToken()
 		if (currentChar == '+')
 		{
 			tokenString += advanced();
-			return { TokenType::PLUS, tokenString, currentLine, currentColumn }
+			return { TokenType::PLUS, tokenString, currentLine, currentColumn };
 		}
 
 		// recognize minus signe
 		if (currentChar == '-')
 		{
 			tokenString += advanced();
-			return { TokenType::MINUS, tokenString, currentLine, currentColumn }
+			return { TokenType::MINUS, tokenString, currentLine, currentColumn };
 		}
 
 		// recognize equal signe
@@ -134,20 +136,20 @@ Token Lexer::recognizeToken()
 		if (currentChar == '=')
 		{
 			tokenString += advanced();
-			return { TokenType::EQUAL, tokenString, currentLine, currentColumn }
+			return { TokenType::EQUAL, tokenString, currentLine, currentColumn };
 		}
 		// recognize parantheses
 
 		if (currentChar == '(')
 		{
-			tokenStrig += advanced();
-			return { TokenType::OPEN_PARANTHESE, tokenString, currentLine, currentColumn }
+			tokenString += advanced();
+			return { TokenType::OPEN_PARANTHESE, tokenString, currentLine, currentColumn };
 		}
 
 		if (currentChar == ')')
 		{
-			tokenStrig += advanced();
-			return { TokenType::CLOSE_PARANTHESE, tokenString, currentLine, currentColumn }
+			tokenString += advanced();
+			return { TokenType::CLOSE_PARANTHESE, tokenString, currentLine, currentColumn };
 		}
 
 		return {TokenType::ERROR, tokenString, currentLine, currentColumn};
@@ -189,11 +191,11 @@ Token Lexer::recognizeNumber()
             // Convert the character to its numeric value 
             int numericValue = currentChar - '0';
             numberTokenHolder = numberTokenHolder * 10 + numericValue;
-            advance();
+            advanced();
         } else if ((currentChar == '.' || currentChar == ',') && !isFloat) {
             // Handle floating-point numbers
             isFloat = true;
-            advance();
+            advanced();
         } else {
             // Stop when encountering a non-numeric character
             break;

@@ -33,7 +33,6 @@ public:
 	Lexer(const std::string &input);
 	Token getNextToken();
 
-private:
 	std::string sourceCode;
 	int currentPosition;
 	int currentLine;
@@ -50,6 +49,6 @@ private:
 	Token recognizeToken();
 	Token recognizeIdentifier();
 	Token recognizeNumber();
-}
+};
 
 #endif // !DEBUG

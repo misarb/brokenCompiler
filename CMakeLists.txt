@@ -17,7 +17,7 @@ endif()
 
 
 
-add_executable(bC src/main.cpp)
+add_executable(bC src/main.cpp include/lexer/lexer.h src/lexer/lexer.cpp)
 
 enable_testing()
 add_subdirectory(test)

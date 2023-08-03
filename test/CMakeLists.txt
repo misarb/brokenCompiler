@@ -19,9 +19,24 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(fmt)
 
 file(GLOB TEST_SOURCES "testCompiler/*.cpp" "testCompiler/*/*.cpp")
-add_executable(
-  ${PROJECT_NAME}_test
-  ${TEST_SOURCES}
+
+# List all source files here
+file(GLOB SOURCES
+    code_generation/*.cpp
+    lexer/*.cpp
+    lexer/lexer.cpp  # Add this line
+    main.cpp
+    parser/*.cpp
+    semantic_analysis/*.cpp
+)
+
+# add_executable(
+#   ${PROJECT_NAME}_test
+#   ${TEST_SOURCES}
+# )
+add_executable(${PROJECT_NAME}_test
+    ${TEST_SOURCES}
+    ../src/lexer/lexer.cpp  
 )
 
 if (ENABLE_COVERAGE)
@@ -37,7 +52,7 @@ if (ENABLE_COVERAGE)
   )
 endif()
 
-# Include src such that we can #include <graaflib/*> in the sources
+# Include src such that we can #include <src/*> in the sources
 target_include_directories(${PROJECT_NAME}_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 
 target_link_libraries(
