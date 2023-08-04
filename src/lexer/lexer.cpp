@@ -1,13 +1,11 @@
 #include <../include/lexer/lexer.h>
 
 Lexer::Lexer(const std::string &input)
-:sourceCode(input),
-	currentPosition(0),
-	currentLine(1),
-	currentColumn(1)
+	: sourceCode(input),
+	  currentPosition(0),
+	  currentLine(1),
+	  currentColumn(1)
 {
-	
-
 }
 
 Token Lexer::getNextToken()
@@ -18,8 +16,6 @@ Token Lexer::getNextToken()
 		return {TokenType::END_OF_FILE, "", currentLine, currentColumn};
 	}
 }
-
-
 
 bool Lexer::isEndOfFile()
 {
@@ -37,7 +33,7 @@ char Lexer::peek()
 	}
 	else
 	{
-		return '\0'; // END_OF_FILE
+		return '\O'; // END_OF_FILE
 	}
 }
 
@@ -70,8 +66,15 @@ bool Lexer::isDigit(char c)
 
 bool Lexer::isAlpha(char c)
 {
-
-	return (c <= 'a' && c >= 'z') || (c <= 'A' && c >= 'Z');
+	
+	if ((c >= 97 && c <= 122) || (c >= 65 && c <= 90))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 char Lexer::advanced()
@@ -120,14 +123,14 @@ Token Lexer::recognizeToken()
 		if (currentChar == '+')
 		{
 			tokenString += advanced();
-			return { TokenType::PLUS, tokenString, currentLine, currentColumn };
+			return {TokenType::PLUS, tokenString, currentLine, currentColumn};
 		}
 
 		// recognize minus signe
 		if (currentChar == '-')
 		{
 			tokenString += advanced();
-			return { TokenType::MINUS, tokenString, currentLine, currentColumn };
+			return {TokenType::MINUS, tokenString, currentLine, currentColumn};
 		}
 
 		// recognize equal signe
@@ -136,20 +139,20 @@ Token Lexer::recognizeToken()
 		if (currentChar == '=')
 		{
 			tokenString += advanced();
-			return { TokenType::EQUAL, tokenString, currentLine, currentColumn };
+			return {TokenType::EQUAL, tokenString, currentLine, currentColumn};
 		}
 		// recognize parantheses
 
 		if (currentChar == '(')
 		{
 			tokenString += advanced();
-			return { TokenType::OPEN_PARANTHESE, tokenString, currentLine, currentColumn };
+			return {TokenType::OPEN_PARANTHESE, tokenString, currentLine, currentColumn};
 		}
 
 		if (currentChar == ')')
 		{
 			tokenString += advanced();
-			return { TokenType::CLOSE_PARANTHESE, tokenString, currentLine, currentColumn };
+			return {TokenType::CLOSE_PARANTHESE, tokenString, currentLine, currentColumn};
 		}
 
 		return {TokenType::ERROR, tokenString, currentLine, currentColumn};
@@ -182,29 +185,34 @@ Token Lexer::recognizeIdentifier()
 Token Lexer::recognizeNumber()
 {
 	int numberTokenHolder = 0;
-    bool isFloat = false;
+	bool isFloat = false;
 
-    while (!isEndOfFile()) {
-        char currentChar = peek();
+	while (!isEndOfFile())
+	{
+		char currentChar = peek();
 
-        if (isDigit(currentChar)) {
-            // Convert the character to its numeric value 
-            int numericValue = currentChar - '0';
-            numberTokenHolder = numberTokenHolder * 10 + numericValue;
-            advanced();
-        } else if ((currentChar == '.' || currentChar == ',') && !isFloat) {
-            // Handle floating-point numbers
-            isFloat = true;
-            advanced();
-        } else {
-            // Stop when encountering a non-numeric character
-            break;
-        }
-    }
+		if (isDigit(currentChar))
+		{
+			// Convert the character to its numeric value
+			int numericValue = currentChar - '0';
+			numberTokenHolder = numberTokenHolder * 10 + numericValue;
+			advanced();
+		}
+		else if ((currentChar == '.' || currentChar == ',') && !isFloat)
+		{
+			// Handle floating-point numbers
+			isFloat = true;
+			advanced();
+		}
+		else
+		{
+			// Stop when encountering a non-numeric character
+			break;
+		}
+	}
 
-    // Create the token with the recognized lexeme
-    std::string lexeme = sourceCode.substr(currentPosition, currentPosition - numberTokenHolder);
-    TokenType tokenType = isFloat ? TokenType::FLOAT : TokenType::INTEGER;
-    return {tokenType, lexeme, currentLine, currentColumn};
-
+	// Create the token with the recognized lexeme
+	std::string lexeme = sourceCode.substr(currentPosition, currentPosition - numberTokenHolder);
+	TokenType tokenType = isFloat ? TokenType::FLOAT : TokenType::INTEGER;
+	return {tokenType, lexeme, currentLine, currentColumn};
 }
