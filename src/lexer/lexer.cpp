@@ -33,7 +33,7 @@ char Lexer::peek()
 	}
 	else
 	{
-		return '\O'; // END_OF_FILE
+		return '\0'; // END_OF_FILE
 	}
 }
 
@@ -108,15 +108,15 @@ Token Lexer::recognizeToken()
 		char currentChar = peek();
 		// TODO : transform it to swtich case to be more readable
 		//  recognise digits tokens
-		if (isDigit(currentChar))
-		{
-			while (isDigit(peek()))
-			{
-				tokenString += advanced();
-			}
+		// if (isDigit(currentChar))
+		// {
+		// 	while (isDigit(peek()))
+		// 	{
+		// 		tokenString += advanced();
+		// 	}
 
-			return {TokenType::INTEGER, tokenString, currentLine, currentColumn};
-		}
+		// 	return {TokenType::INTEGER, tokenString, currentLine, currentColumn};
+		// }
 
 		// recognize plus signe
 
